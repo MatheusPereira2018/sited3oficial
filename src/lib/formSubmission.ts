@@ -34,10 +34,9 @@ export async function submitFormToN8N(
     };
 
     console.log(`🚀 Sending ${additionalInfo.origem} data to N8N...`);
-    console.log("📍 Supabase URL:", import.meta.env.VITE_SUPABASE_URL);
     console.log("📋 Payload:", JSON.stringify(payload, null, 2));
 
-    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/webhook`, {
+    const response = await fetch(`/api/public/webhook`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
