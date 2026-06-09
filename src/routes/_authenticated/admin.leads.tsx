@@ -140,7 +140,7 @@ function AdminLeadsPage() {
   );
 
   const toggleContacted = async (lead: Lead) => {
-    const { error } = await supabase
+    const { error } = await (supabase as any)
       .from("leads")
       .update({ contacted: !lead.contacted })
       .eq("id", lead.id);
