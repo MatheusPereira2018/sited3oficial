@@ -77,7 +77,7 @@ function AdminLeadsPage() {
       return;
     }
 
-    const { data: roleRow } = await supabase
+    const { data: roleRow } = await (supabase as any)
       .from("user_roles")
       .select("role")
       .eq("user_id", userData.user.id)
@@ -88,7 +88,7 @@ function AdminLeadsPage() {
     setIsAdmin(adminOk);
 
     if (adminOk) {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from("leads")
         .select("*")
         .order("created_at", { ascending: false });
