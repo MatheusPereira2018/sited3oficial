@@ -65,14 +65,26 @@ export const ContactSection = () => {
 
       if (result.success) {
         toast({
-          title: "Mensagem enviada!",
-          description: "Entraremos em contato o mais breve possível.",
+          title: "Mensagem registrada!",
+          description: "Redirecionando para o WhatsApp...",
         });
         (e.target as HTMLFormElement).reset();
         setPosition("");
         setSegment("");
         setEmployees("");
         setInterest("");
+
+        const message =
+          `Olá! Sou ${contactInfo.name}` +
+          (contactInfo.company ? ` da ${contactInfo.company}` : "") +
+          `. Gostaria de conversar sobre os serviços da D3 Data.`;
+        setTimeout(() => {
+          window.open(
+            `https://wa.me/5516997522363?text=${encodeURIComponent(message)}`,
+            "_blank",
+            "noopener,noreferrer",
+          );
+        }, 500);
       } else {
         toast({
           title: "Erro ao enviar",

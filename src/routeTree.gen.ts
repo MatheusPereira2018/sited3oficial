@@ -18,7 +18,6 @@ import { Route as CaseNaturinVendasRouteImport } from './routes/case.naturin-ven
 import { Route as CaseIaRhRouteImport } from './routes/case.ia-rh'
 import { Route as CaseCopaMundoRouteImport } from './routes/case.copa-mundo'
 import { Route as CaseChackappRouteImport } from './routes/case.chackapp'
-import { Route as ApiPublicWebhookRouteImport } from './routes/api/public/webhook'
 
 const PalestrasRoute = PalestrasRouteImport.update({
   id: '/palestras',
@@ -65,11 +64,6 @@ const CaseChackappRoute = CaseChackappRouteImport.update({
   path: '/case/chackapp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicWebhookRoute = ApiPublicWebhookRouteImport.update({
-  id: '/api/public/webhook',
-  path: '/api/public/webhook',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -81,7 +75,6 @@ export interface FileRoutesByFullPath {
   '/case/ia-rh': typeof CaseIaRhRoute
   '/case/naturin-vendas': typeof CaseNaturinVendasRoute
   '/case/oraculo': typeof CaseOraculoRoute
-  '/api/public/webhook': typeof ApiPublicWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -93,7 +86,6 @@ export interface FileRoutesByTo {
   '/case/ia-rh': typeof CaseIaRhRoute
   '/case/naturin-vendas': typeof CaseNaturinVendasRoute
   '/case/oraculo': typeof CaseOraculoRoute
-  '/api/public/webhook': typeof ApiPublicWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -106,7 +98,6 @@ export interface FileRoutesById {
   '/case/ia-rh': typeof CaseIaRhRoute
   '/case/naturin-vendas': typeof CaseNaturinVendasRoute
   '/case/oraculo': typeof CaseOraculoRoute
-  '/api/public/webhook': typeof ApiPublicWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -120,7 +111,6 @@ export interface FileRouteTypes {
     | '/case/ia-rh'
     | '/case/naturin-vendas'
     | '/case/oraculo'
-    | '/api/public/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -132,7 +122,6 @@ export interface FileRouteTypes {
     | '/case/ia-rh'
     | '/case/naturin-vendas'
     | '/case/oraculo'
-    | '/api/public/webhook'
   id:
     | '__root__'
     | '/'
@@ -144,7 +133,6 @@ export interface FileRouteTypes {
     | '/case/ia-rh'
     | '/case/naturin-vendas'
     | '/case/oraculo'
-    | '/api/public/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -157,7 +145,6 @@ export interface RootRouteChildren {
   CaseIaRhRoute: typeof CaseIaRhRoute
   CaseNaturinVendasRoute: typeof CaseNaturinVendasRoute
   CaseOraculoRoute: typeof CaseOraculoRoute
-  ApiPublicWebhookRoute: typeof ApiPublicWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -225,13 +212,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseChackappRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/webhook': {
-      id: '/api/public/webhook'
-      path: '/api/public/webhook'
-      fullPath: '/api/public/webhook'
-      preLoaderRoute: typeof ApiPublicWebhookRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -245,7 +225,6 @@ const rootRouteChildren: RootRouteChildren = {
   CaseIaRhRoute: CaseIaRhRoute,
   CaseNaturinVendasRoute: CaseNaturinVendasRoute,
   CaseOraculoRoute: CaseOraculoRoute,
-  ApiPublicWebhookRoute: ApiPublicWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
