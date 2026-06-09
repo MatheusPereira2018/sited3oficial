@@ -33,14 +33,14 @@ export async function submitFormToN8N(
 
     const { origem, ...extras } = additionalInfo;
 
-    const { error } = await supabase.from("leads").insert({
+    const { error } = await (supabase as any).from("leads").insert({
       name: contactInfo.name,
       email: contactInfo.email,
       phone: formattedPhone || null,
       company: contactInfo.company || null,
       origem,
       form_type: origem,
-      payload: extras as any,
+      payload: extras,
     });
 
     if (error) {
