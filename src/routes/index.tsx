@@ -1,29 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
+import Index from "@/pages_legacy/Index";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Your App" },
-      { name: "description", content: "Replace this with a one-sentence description of your app." },
-      { property: "og:title", content: "Your App" },
-      { property: "og:description", content: "Replace this with a one-sentence description of your app." },
+      { title: "D3 Data — Consultoria em Dados e IA" },
+      {
+        name: "description",
+        content:
+          "Transformamos dados em decisões. Consultoria estratégica em BI, Analytics, IA e Engenharia de Dados para empresas que querem crescer com inteligência.",
+      },
+      { property: "og:title", content: "D3 Data — Consultoria em Dados e IA" },
+      {
+        property: "og:description",
+        content: "Transformamos dados em decisões. BI, Analytics, IA e Engenharia de Dados.",
+      },
     ],
   }),
   component: Index,
 });
-
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
-function Index() {
-  return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
-  );
-}

@@ -9,38 +9,180 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as PalestrasRouteImport } from './routes/palestras'
+import { Route as DiagnosticoMaturidadeRouteImport } from './routes/diagnostico-maturidade'
+import { Route as CasesRouteImport } from './routes/cases'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CaseOraculoRouteImport } from './routes/case.oraculo'
+import { Route as CaseNaturinVendasRouteImport } from './routes/case.naturin-vendas'
+import { Route as CaseIaRhRouteImport } from './routes/case.ia-rh'
+import { Route as CaseCopaMundoRouteImport } from './routes/case.copa-mundo'
+import { Route as CaseChackappRouteImport } from './routes/case.chackapp'
+import { Route as ApiPublicWebhookRouteImport } from './routes/api/public/webhook'
 
+const PalestrasRoute = PalestrasRouteImport.update({
+  id: '/palestras',
+  path: '/palestras',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiagnosticoMaturidadeRoute = DiagnosticoMaturidadeRouteImport.update({
+  id: '/diagnostico-maturidade',
+  path: '/diagnostico-maturidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CasesRoute = CasesRouteImport.update({
+  id: '/cases',
+  path: '/cases',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseOraculoRoute = CaseOraculoRouteImport.update({
+  id: '/case/oraculo',
+  path: '/case/oraculo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseNaturinVendasRoute = CaseNaturinVendasRouteImport.update({
+  id: '/case/naturin-vendas',
+  path: '/case/naturin-vendas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseIaRhRoute = CaseIaRhRouteImport.update({
+  id: '/case/ia-rh',
+  path: '/case/ia-rh',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseCopaMundoRoute = CaseCopaMundoRouteImport.update({
+  id: '/case/copa-mundo',
+  path: '/case/copa-mundo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaseChackappRoute = CaseChackappRouteImport.update({
+  id: '/case/chackapp',
+  path: '/case/chackapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWebhookRoute = ApiPublicWebhookRouteImport.update({
+  id: '/api/public/webhook',
+  path: '/api/public/webhook',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cases': typeof CasesRoute
+  '/diagnostico-maturidade': typeof DiagnosticoMaturidadeRoute
+  '/palestras': typeof PalestrasRoute
+  '/case/chackapp': typeof CaseChackappRoute
+  '/case/copa-mundo': typeof CaseCopaMundoRoute
+  '/case/ia-rh': typeof CaseIaRhRoute
+  '/case/naturin-vendas': typeof CaseNaturinVendasRoute
+  '/case/oraculo': typeof CaseOraculoRoute
+  '/api/public/webhook': typeof ApiPublicWebhookRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cases': typeof CasesRoute
+  '/diagnostico-maturidade': typeof DiagnosticoMaturidadeRoute
+  '/palestras': typeof PalestrasRoute
+  '/case/chackapp': typeof CaseChackappRoute
+  '/case/copa-mundo': typeof CaseCopaMundoRoute
+  '/case/ia-rh': typeof CaseIaRhRoute
+  '/case/naturin-vendas': typeof CaseNaturinVendasRoute
+  '/case/oraculo': typeof CaseOraculoRoute
+  '/api/public/webhook': typeof ApiPublicWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cases': typeof CasesRoute
+  '/diagnostico-maturidade': typeof DiagnosticoMaturidadeRoute
+  '/palestras': typeof PalestrasRoute
+  '/case/chackapp': typeof CaseChackappRoute
+  '/case/copa-mundo': typeof CaseCopaMundoRoute
+  '/case/ia-rh': typeof CaseIaRhRoute
+  '/case/naturin-vendas': typeof CaseNaturinVendasRoute
+  '/case/oraculo': typeof CaseOraculoRoute
+  '/api/public/webhook': typeof ApiPublicWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/cases'
+    | '/diagnostico-maturidade'
+    | '/palestras'
+    | '/case/chackapp'
+    | '/case/copa-mundo'
+    | '/case/ia-rh'
+    | '/case/naturin-vendas'
+    | '/case/oraculo'
+    | '/api/public/webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/cases'
+    | '/diagnostico-maturidade'
+    | '/palestras'
+    | '/case/chackapp'
+    | '/case/copa-mundo'
+    | '/case/ia-rh'
+    | '/case/naturin-vendas'
+    | '/case/oraculo'
+    | '/api/public/webhook'
+  id:
+    | '__root__'
+    | '/'
+    | '/cases'
+    | '/diagnostico-maturidade'
+    | '/palestras'
+    | '/case/chackapp'
+    | '/case/copa-mundo'
+    | '/case/ia-rh'
+    | '/case/naturin-vendas'
+    | '/case/oraculo'
+    | '/api/public/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CasesRoute: typeof CasesRoute
+  DiagnosticoMaturidadeRoute: typeof DiagnosticoMaturidadeRoute
+  PalestrasRoute: typeof PalestrasRoute
+  CaseChackappRoute: typeof CaseChackappRoute
+  CaseCopaMundoRoute: typeof CaseCopaMundoRoute
+  CaseIaRhRoute: typeof CaseIaRhRoute
+  CaseNaturinVendasRoute: typeof CaseNaturinVendasRoute
+  CaseOraculoRoute: typeof CaseOraculoRoute
+  ApiPublicWebhookRoute: typeof ApiPublicWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/palestras': {
+      id: '/palestras'
+      path: '/palestras'
+      fullPath: '/palestras'
+      preLoaderRoute: typeof PalestrasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diagnostico-maturidade': {
+      id: '/diagnostico-maturidade'
+      path: '/diagnostico-maturidade'
+      fullPath: '/diagnostico-maturidade'
+      preLoaderRoute: typeof DiagnosticoMaturidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cases': {
+      id: '/cases'
+      path: '/cases'
+      fullPath: '/cases'
+      preLoaderRoute: typeof CasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +190,63 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/case/oraculo': {
+      id: '/case/oraculo'
+      path: '/case/oraculo'
+      fullPath: '/case/oraculo'
+      preLoaderRoute: typeof CaseOraculoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case/naturin-vendas': {
+      id: '/case/naturin-vendas'
+      path: '/case/naturin-vendas'
+      fullPath: '/case/naturin-vendas'
+      preLoaderRoute: typeof CaseNaturinVendasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case/ia-rh': {
+      id: '/case/ia-rh'
+      path: '/case/ia-rh'
+      fullPath: '/case/ia-rh'
+      preLoaderRoute: typeof CaseIaRhRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case/copa-mundo': {
+      id: '/case/copa-mundo'
+      path: '/case/copa-mundo'
+      fullPath: '/case/copa-mundo'
+      preLoaderRoute: typeof CaseCopaMundoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case/chackapp': {
+      id: '/case/chackapp'
+      path: '/case/chackapp'
+      fullPath: '/case/chackapp'
+      preLoaderRoute: typeof CaseChackappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/webhook': {
+      id: '/api/public/webhook'
+      path: '/api/public/webhook'
+      fullPath: '/api/public/webhook'
+      preLoaderRoute: typeof ApiPublicWebhookRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CasesRoute: CasesRoute,
+  DiagnosticoMaturidadeRoute: DiagnosticoMaturidadeRoute,
+  PalestrasRoute: PalestrasRoute,
+  CaseChackappRoute: CaseChackappRoute,
+  CaseCopaMundoRoute: CaseCopaMundoRoute,
+  CaseIaRhRoute: CaseIaRhRoute,
+  CaseNaturinVendasRoute: CaseNaturinVendasRoute,
+  CaseOraculoRoute: CaseOraculoRoute,
+  ApiPublicWebhookRoute: ApiPublicWebhookRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
