@@ -12,12 +12,15 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as PalestrasRouteImport } from './routes/palestras'
 import { Route as DiagnosticoMaturidadeRouteImport } from './routes/diagnostico-maturidade'
 import { Route as CasesRouteImport } from './routes/cases'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaseOraculoRouteImport } from './routes/case.oraculo'
 import { Route as CaseNaturinVendasRouteImport } from './routes/case.naturin-vendas'
 import { Route as CaseIaRhRouteImport } from './routes/case.ia-rh'
 import { Route as CaseCopaMundoRouteImport } from './routes/case.copa-mundo'
 import { Route as CaseChackappRouteImport } from './routes/case.chackapp'
+import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin.leads'
 
 const PalestrasRoute = PalestrasRouteImport.update({
   id: '/palestras',
@@ -32,6 +35,15 @@ const DiagnosticoMaturidadeRoute = DiagnosticoMaturidadeRouteImport.update({
 const CasesRoute = CasesRouteImport.update({
   id: '/cases',
   path: '/cases',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -64,9 +76,15 @@ const CaseChackappRoute = CaseChackappRouteImport.update({
   path: '/case/chackapp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
+  id: '/admin/leads',
+  path: '/admin/leads',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cases': typeof CasesRoute
   '/diagnostico-maturidade': typeof DiagnosticoMaturidadeRoute
   '/palestras': typeof PalestrasRoute
@@ -75,9 +93,11 @@ export interface FileRoutesByFullPath {
   '/case/ia-rh': typeof CaseIaRhRoute
   '/case/naturin-vendas': typeof CaseNaturinVendasRoute
   '/case/oraculo': typeof CaseOraculoRoute
+  '/admin/leads': typeof AuthenticatedAdminLeadsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/cases': typeof CasesRoute
   '/diagnostico-maturidade': typeof DiagnosticoMaturidadeRoute
   '/palestras': typeof PalestrasRoute
@@ -86,10 +106,13 @@ export interface FileRoutesByTo {
   '/case/ia-rh': typeof CaseIaRhRoute
   '/case/naturin-vendas': typeof CaseNaturinVendasRoute
   '/case/oraculo': typeof CaseOraculoRoute
+  '/admin/leads': typeof AuthenticatedAdminLeadsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/cases': typeof CasesRoute
   '/diagnostico-maturidade': typeof DiagnosticoMaturidadeRoute
   '/palestras': typeof PalestrasRoute
@@ -98,11 +121,13 @@ export interface FileRoutesById {
   '/case/ia-rh': typeof CaseIaRhRoute
   '/case/naturin-vendas': typeof CaseNaturinVendasRoute
   '/case/oraculo': typeof CaseOraculoRoute
+  '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
     | '/cases'
     | '/diagnostico-maturidade'
     | '/palestras'
@@ -111,9 +136,11 @@ export interface FileRouteTypes {
     | '/case/ia-rh'
     | '/case/naturin-vendas'
     | '/case/oraculo'
+    | '/admin/leads'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/cases'
     | '/diagnostico-maturidade'
     | '/palestras'
@@ -122,9 +149,12 @@ export interface FileRouteTypes {
     | '/case/ia-rh'
     | '/case/naturin-vendas'
     | '/case/oraculo'
+    | '/admin/leads'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
+    | '/auth'
     | '/cases'
     | '/diagnostico-maturidade'
     | '/palestras'
@@ -133,10 +163,13 @@ export interface FileRouteTypes {
     | '/case/ia-rh'
     | '/case/naturin-vendas'
     | '/case/oraculo'
+    | '/_authenticated/admin/leads'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   CasesRoute: typeof CasesRoute
   DiagnosticoMaturidadeRoute: typeof DiagnosticoMaturidadeRoute
   PalestrasRoute: typeof PalestrasRoute
@@ -168,6 +201,20 @@ declare module '@tanstack/react-router' {
       path: '/cases'
       fullPath: '/cases'
       preLoaderRoute: typeof CasesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -212,11 +259,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CaseChackappRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/leads': {
+      id: '/_authenticated/admin/leads'
+      path: '/admin/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   CasesRoute: CasesRoute,
   DiagnosticoMaturidadeRoute: DiagnosticoMaturidadeRoute,
   PalestrasRoute: PalestrasRoute,
@@ -229,3 +296,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
