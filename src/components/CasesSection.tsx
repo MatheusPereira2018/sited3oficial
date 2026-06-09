@@ -1,7 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ArrowRight, Database, BarChart3, Palette, Brain, Layers, Compass } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "@tanstack/react-router";
 
 // Componente separado para cada card de case
 const CaseCard = ({ caseItem, index, activeCategory }: { caseItem: any; index: number; activeCategory: string }) => {
