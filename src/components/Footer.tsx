@@ -155,6 +155,12 @@ export const Footer = () => {
           <p className="text-muted-foreground text-sm">
             Ribeirão Preto, SP · contato@d3data.com.br
           </p>
+          <a
+            href="/auth"
+            className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+          >
+            Admin
+          </a>
         </div>
       </div>
     </footer>
