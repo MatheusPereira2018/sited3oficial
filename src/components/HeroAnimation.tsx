@@ -1,250 +1,243 @@
-import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { TrendingUp, ArrowUpRight, Sparkles } from "lucide-react";
 
 /**
- * Hero animation — Linear/Vercel/Resend style.
- * One beautiful dashboard, always present. Method shows up as floating
- * annotations around it, one at a time.
+ * Hero animation — "Do caos à clareza".
+ * Pontos dispersos convergem, se conectam, formam uma linha ascendente.
+ * Atmosférico, sem UI literal. Inspirado em Verum / Linear / Vercel.
  */
 
-const methodTags = [
-  { label: "Discovery", x: "-8%", y: "12%", side: "left" as const },
-  { label: "Requisitos", x: "92%", y: "22%", side: "right" as const },
-  { label: "Entrevistas", x: "-6%", y: "58%", side: "left" as const },
-  { label: "Arquitetura", x: "94%", y: "68%", side: "right" as const },
-  { label: "DAX otimizado", x: "-4%", y: "82%", side: "left" as const },
+// Deterministic pseudo-random scatter (no hydration mismatch)
+const SEED_POINTS = [
+  { x: 8, y: 72 }, { x: 14, y: 28 }, { x: 19, y: 88 }, { x: 24, y: 44 },
+  { x: 31, y: 18 }, { x: 36, y: 64 }, { x: 42, y: 92 }, { x: 47, y: 36 },
+  { x: 53, y: 78 }, { x: 58, y: 22 }, { x: 64, y: 58 }, { x: 70, y: 84 },
+  { x: 76, y: 32 }, { x: 82, y: 68 }, { x: 88, y: 14 }, { x: 93, y: 50 },
 ];
 
+// The "clarity" line — gentle ascending curve through 8 anchor points
+const LINE_POINTS = [
+  { x: 8, y: 72 },
+  { x: 19, y: 66 },
+  { x: 31, y: 58 },
+  { x: 42, y: 52 },
+  { x: 53, y: 42 },
+  { x: 64, y: 34 },
+  { x: 76, y: 24 },
+  { x: 93, y: 14 },
+];
+
+const CYCLE_MS = 7000;
+
 export const HeroAnimation = () => {
-  const [tagIndex, setTagIndex] = useState(0);
+  const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const id = setInterval(() => {
-      setTagIndex((i) => (i + 1) % methodTags.length);
-    }, 2400);
+    const id = setInterval(() => setTick((t) => t + 1), CYCLE_MS);
     return () => clearInterval(id);
   }, []);
 
-  const currentTag = methodTags[tagIndex];
+  const linePath = LINE_POINTS.map(
+    (p, i) => `${i === 0 ? "M" : "L"}${p.x},${p.y}`
+  ).join(" ");
 
   return (
-    <div className="relative w-full aspect-[4/3] max-w-[680px] mx-auto lg:mx-0">
+    <div className="relative w-full aspect-[5/4] max-w-[680px] mx-auto lg:mx-0">
       {/* Ambient glow */}
       <div
-        className="absolute -inset-20 blur-3xl opacity-60 pointer-events-none"
+        className="absolute -inset-24 blur-3xl opacity-70 pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle at 30% 30%, rgba(9,116,214,0.4) 0%, transparent 55%), radial-gradient(circle at 75% 75%, rgba(56,189,248,0.18) 0%, transparent 50%)",
+            "radial-gradient(circle at 30% 40%, rgba(9,116,214,0.35) 0%, transparent 55%), radial-gradient(circle at 75% 70%, rgba(56,189,248,0.18) 0%, transparent 50%)",
         }}
       />
 
-      {/* Floating method tag */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentTag.label}
-          initial={{ opacity: 0, scale: 0.9, x: currentTag.side === "left" ? -10 : 10 }}
-          animate={{ opacity: 1, scale: 1, x: 0 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute z-20"
-          style={{
-            left: currentTag.x,
-            top: currentTag.y,
-            transform: currentTag.side === "right" ? "translateX(-100%)" : undefined,
-          }}
+      {/* Vignette frame */}
+      <div
+        className="relative w-full h-full rounded-[28px] overflow-hidden"
+        style={{
+          background:
+            "radial-gradient(ellipse at 50% 40%, #1A1547 0%, #16113A 55%, #0F0B2C 100%)",
+          boxShadow:
+            "0 30px 80px -20px rgba(9,116,214,0.35), inset 0 1px 0 rgba(255,255,255,0.04)",
+          border: "1px solid rgba(255,255,255,0.06)",
+        }}
+      >
+        {/* Subtle grid */}
+        <svg
+          className="absolute inset-0 w-full h-full opacity-[0.07]"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-background/80 backdrop-blur-xl border border-white/10 shadow-[0_8px_24px_-8px_rgba(9,116,214,0.4)]">
-            <Sparkles className="w-3 h-3 text-[#38BDF8]" />
-            <span className="text-[11.5px] font-medium text-foreground tracking-tight whitespace-nowrap">
-              {currentTag.label}
-            </span>
-          </div>
-          <motion.div
-            className="absolute top-1/2 w-1.5 h-1.5 rounded-full bg-[#38BDF8]"
-            style={{
-              [currentTag.side === "left" ? "right" : "left"]: -10,
-              transform: "translateY(-50%)",
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+
+        {/* Main scene */}
+        <svg
+          key={tick}
+          viewBox="0 0 100 100"
+          className="absolute inset-0 w-full h-full"
+          preserveAspectRatio="none"
+        >
+          <defs>
+            <linearGradient id="lineGrad" x1="0" y1="1" x2="1" y2="0">
+              <stop offset="0%" stopColor="#0974D6" stopOpacity="0.6" />
+              <stop offset="60%" stopColor="#38BDF8" stopOpacity="1" />
+              <stop offset="100%" stopColor="#7DD3FC" stopOpacity="1" />
+            </linearGradient>
+            <radialGradient id="dotGlow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#38BDF8" stopOpacity="0" />
+            </radialGradient>
+            <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="0.8" result="blur" />
+              <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* Phase 1: scattered chaotic dots — drift in, jitter, then fade */}
+          {SEED_POINTS.map((p, i) => {
+            const targetIndex = Math.min(
+              LINE_POINTS.length - 1,
+              Math.round((i / (SEED_POINTS.length - 1)) * (LINE_POINTS.length - 1))
+            );
+            const target = LINE_POINTS[targetIndex];
+            const delay = 0.05 * i;
+            const isAnchor = i % 2 === 0 && targetIndex < LINE_POINTS.length;
+
+            return (
+              <motion.circle
+                key={i}
+                r="0.7"
+                fill="white"
+                fillOpacity="0.55"
+                initial={{ cx: p.x, cy: p.y, opacity: 0 }}
+                animate={{
+                  cx: [p.x, p.x, target.x],
+                  cy: [p.y, p.y, target.y],
+                  opacity: [0, 0.7, isAnchor ? 1 : 0],
+                  r: [0.7, 0.7, isAnchor ? 1.1 : 0.4],
+                }}
+                transition={{
+                  duration: 4.2,
+                  times: [0, 0.45, 1],
+                  delay,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              />
+            );
+          })}
+
+          {/* Faint chaotic connectors during phase 1 */}
+          {SEED_POINTS.slice(0, -1).map((p, i) => {
+            const next = SEED_POINTS[i + 1];
+            return (
+              <motion.line
+                key={`c-${i}`}
+                x1={p.x}
+                y1={p.y}
+                x2={next.x}
+                y2={next.y}
+                stroke="white"
+                strokeOpacity="0.15"
+                strokeWidth="0.15"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{
+                  pathLength: [0, 1, 1],
+                  opacity: [0, 0.4, 0],
+                }}
+                transition={{
+                  duration: 3,
+                  times: [0, 0.5, 1],
+                  delay: 0.4 + i * 0.04,
+                  ease: "easeOut",
+                }}
+              />
+            );
+          })}
+
+          {/* Phase 2: the clarity line draws through anchor points */}
+          <motion.path
+            d={linePath}
+            fill="none"
+            stroke="url(#lineGrad)"
+            strokeWidth="0.9"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            filter="url(#softGlow)"
+            initial={{ pathLength: 0, opacity: 0 }}
+            animate={{ pathLength: [0, 1], opacity: [0, 1] }}
+            transition={{
+              duration: 2.2,
+              delay: 3.2,
+              ease: [0.22, 1, 0.36, 1],
             }}
-            initial={{ scale: 0 }}
-            animate={{ scale: [0, 1.4, 1] }}
-            transition={{ duration: 0.6, delay: 0.1 }}
           />
-        </motion.div>
-      </AnimatePresence>
 
-      <Dashboard />
-    </div>
-  );
-};
+          {/* Phase 3: single bright endpoint — "the decision" */}
+          <motion.circle
+            cx={LINE_POINTS[LINE_POINTS.length - 1].x}
+            cy={LINE_POINTS[LINE_POINTS.length - 1].y}
+            r="1.6"
+            fill="#7DD3FC"
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{
+              opacity: [0, 1, 1],
+              scale: [0, 1.4, 1],
+            }}
+            transition={{
+              duration: 1.2,
+              delay: 5.2,
+              times: [0, 0.6, 1],
+              ease: [0.22, 1, 0.36, 1],
+            }}
+            style={{ transformOrigin: "center", transformBox: "fill-box" }}
+          />
+          {/* Endpoint pulse rings */}
+          {[0, 1].map((i) => (
+            <motion.circle
+              key={`ring-${i}`}
+              cx={LINE_POINTS[LINE_POINTS.length - 1].x}
+              cy={LINE_POINTS[LINE_POINTS.length - 1].y}
+              r="1.6"
+              fill="none"
+              stroke="#7DD3FC"
+              strokeWidth="0.25"
+              initial={{ opacity: 0, scale: 1 }}
+              animate={{ opacity: [0, 0.6, 0], scale: [1, 4.5, 5] }}
+              transition={{
+                duration: 2.4,
+                delay: 5.6 + i * 0.7,
+                ease: "easeOut",
+              }}
+              style={{ transformOrigin: "center", transformBox: "fill-box" }}
+            />
+          ))}
+        </svg>
 
-const Dashboard = () => (
-  <motion.div
-    initial={{ opacity: 0, y: 20, scale: 0.97 }}
-    animate={{ opacity: 1, y: 0, scale: 1 }}
-    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-    className="relative w-full h-full rounded-2xl overflow-hidden border border-white/[0.08] shadow-[0_30px_80px_-20px_rgba(9,116,214,0.4)]"
-    style={{
-      background: "linear-gradient(180deg, #1A1547 0%, #16113A 100%)",
-      fontFamily: "Inter, sans-serif",
-    }}
-  >
-    <div className="flex items-center gap-1.5 px-4 h-7 border-b border-white/5">
-      <div className="w-2 h-2 rounded-full bg-white/15" />
-      <div className="w-2 h-2 rounded-full bg-white/15" />
-      <div className="w-2 h-2 rounded-full bg-white/15" />
-    </div>
-
-    <div className="p-5 h-[calc(100%-1.75rem)]">
-      <motion.div
-        initial={{ opacity: 0, y: 6 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-        className="flex items-end justify-between mb-4"
-      >
-        <div>
-          <div className="text-[10px] text-white/40 tracking-wider uppercase">
-            Performance comercial
-          </div>
-          <div className="text-[14px] text-white font-semibold tracking-tight mt-0.5">
-            Visão executiva · 2025
-          </div>
+        {/* Caption — minimal, bottom-left */}
+        <div className="absolute left-6 bottom-5 right-6 flex items-center justify-between text-[10.5px] tracking-[0.2em] uppercase">
+          <span className="text-white/35">Dados dispersos</span>
+          <motion.div
+            className="flex-1 mx-4 h-px"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(255,255,255,0.1), rgba(125,211,252,0.4), rgba(255,255,255,0.1))",
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1] }}
+            transition={{ duration: 1, delay: 4 }}
+          />
+          <span className="text-[#7DD3FC]/90 font-medium">Decisão clara</span>
         </div>
-        <div className="text-[10px] text-white/40">YTD</div>
-      </motion.div>
-
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <KpiCard label="Receita" prefix="R$ " suffix="M" to={24.8} decimals={1} delta="+18,4%" delay={0.45} />
-        <KpiCard label="Ticket médio" prefix="R$ " to={4120} decimals={0} delta="+6,2%" delay={0.6} />
       </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.75, duration: 0.5 }}
-        className="rounded-lg bg-white/[0.04] border border-white/[0.06] p-3 h-[calc(100%-9.5rem)]"
-      >
-        <div className="flex items-center justify-between mb-2">
-          <div className="text-[10px] text-white/40 tracking-wider uppercase">
-            Receita mensal vs ano anterior
-          </div>
-          <ArrowUpRight className="w-3 h-3 text-[#38BDF8]" />
-        </div>
-        <div className="h-[calc(100%-1.25rem)]">
-          <AreaChart />
-        </div>
-      </motion.div>
     </div>
-  </motion.div>
-);
-
-const KpiCard = ({
-  label,
-  prefix = "",
-  suffix = "",
-  to,
-  decimals,
-  delta,
-  delay,
-}: {
-  label: string;
-  prefix?: string;
-  suffix?: string;
-  to: number;
-  decimals: number;
-  delta: string;
-  delay: number;
-}) => {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (v) => {
-    const n = decimals > 0 ? v.toFixed(decimals).replace(".", ",") : Math.round(v).toLocaleString("pt-BR");
-    return `${prefix}${n}${suffix}`;
-  });
-
-  useEffect(() => {
-    const controls = animate(count, to, {
-      duration: 1.6,
-      delay: delay + 0.2,
-      ease: [0.22, 1, 0.36, 1],
-    });
-    return controls.stop;
-  }, [count, to, delay]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-lg bg-white/[0.04] border border-white/[0.06] p-3"
-    >
-      <div className="text-[10px] text-white/40 tracking-wider uppercase">{label}</div>
-      <motion.div className="text-[20px] font-semibold text-white tracking-tight mt-1 tabular-nums">
-        {rounded}
-      </motion.div>
-      <div className="flex items-center gap-1 text-[10px] text-emerald-400 mt-1">
-        <TrendingUp className="w-3 h-3" />
-        {delta}
-        <span className="text-white/30 ml-0.5">vs 2024</span>
-      </div>
-    </motion.div>
-  );
-};
-
-const AreaChart = () => {
-  const current = [22, 28, 26, 38, 36, 50, 56, 54, 66, 72, 80, 90];
-  const prev = [18, 22, 26, 30, 28, 34, 38, 42, 48, 52, 58, 62];
-  const w = 100;
-  const h = 100;
-  const toPath = (arr: number[]) =>
-    arr
-      .map((v, i) => {
-        const x = (i / (arr.length - 1)) * w;
-        const y = h - (v / 100) * h;
-        return `${i === 0 ? "M" : "L"}${x.toFixed(2)},${y.toFixed(2)}`;
-      })
-      .join(" ");
-  const toArea = (arr: number[]) => `${toPath(arr)} L${w},${h} L0,${h} Z`;
-
-  return (
-    <svg viewBox={`0 0 ${w} ${h}`} className="w-full h-full" preserveAspectRatio="none">
-      <defs>
-        <linearGradient id="areaGrad3" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#38BDF8" stopOpacity="0" />
-        </linearGradient>
-      </defs>
-      {[25, 50, 75].map((y) => (
-        <line key={y} x1="0" y1={y} x2={w} y2={y} stroke="white" strokeOpacity="0.04" strokeWidth="0.3" />
-      ))}
-      <motion.path
-        d={toPath(prev)}
-        fill="none"
-        stroke="white"
-        strokeOpacity="0.2"
-        strokeWidth="0.5"
-        strokeDasharray="1.2 1.5"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ delay: 0.95, duration: 1.1, ease: "easeOut" }}
-      />
-      <motion.path
-        d={toArea(current)}
-        fill="url(#areaGrad3)"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
-      />
-      <motion.path
-        d={toPath(current)}
-        fill="none"
-        stroke="#38BDF8"
-        strokeWidth="0.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        initial={{ pathLength: 0 }}
-        animate={{ pathLength: 1 }}
-        transition={{ delay: 1.05, duration: 1.2, ease: "easeOut" }}
-      />
-    </svg>
   );
 };
