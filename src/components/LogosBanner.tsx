@@ -12,8 +12,22 @@ import logoStartTel from "@/assets/clients/starttel.png";
 import logoEcoterra from "@/assets/clients/ecoterra.png";
 import logoImpactaTech from "@/assets/clients/impactatech.jpg";
 import logoHiddenSushi from "@/assets/clients/hidden-sushi.png";
+import logoCamil from "@/assets/clients/camil.png";
+import logoUniao from "@/assets/clients/uniao.png";
+import logoCoqueiro from "@/assets/clients/coqueiro.png";
+import logoSantaAmalia from "@/assets/clients/santa-amalia.png";
+import logoNamorado from "@/assets/clients/namorado.png";
+import logoPescador from "@/assets/clients/pescador.png";
+import logoMabel from "@/assets/clients/mabel.png";
 
 const logos = [
+  { src: logoCamil, alt: "Camil" },
+  { src: logoUniao, alt: "União" },
+  { src: logoCoqueiro, alt: "Coqueiro" },
+  { src: logoSantaAmalia, alt: "Santa Amália" },
+  { src: logoNamorado, alt: "Namorado" },
+  { src: logoPescador, alt: "Pescador" },
+  { src: logoMabel, alt: "Mabel" },
   { src: logoEixoSP, alt: "Eixo SP" },
   { src: logoEntrevias, alt: "Entrevias" },
   { src: logoNutrivet, alt: "Nutrivet" },
@@ -25,6 +39,7 @@ const logos = [
   { src: logoImpactaTech, alt: "Impacta Tech" },
   { src: logoHiddenSushi, alt: "Hidden Sushi" },
 ];
+
 
 const LogoItem = ({ 
   logo, 
