@@ -142,7 +142,7 @@ export const HeroSection = () => {
               <img 
                 src="/Imagens/Herosection.png" 
                 alt="Dashboard de análise de dados" 
-                className="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,113,231,0.3)] max-w-[550px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px]"
+                className="w-full h-auto vg-rgb max-w-[550px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px]"
                 loading="eager"
               />
             </div>
