@@ -165,7 +165,7 @@ export const LogosBanner = () => {
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: isMobile ? 20 : 12,
+                duration: isMobile ? 45 : 30,
                 ease: "linear",
               },
             }}
