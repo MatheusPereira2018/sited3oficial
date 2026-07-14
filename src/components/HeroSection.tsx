@@ -17,11 +17,14 @@ export const HeroSection = () => {
 
   return (
     <>
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24 md:pt-24 pb-16">
+    <section id="home" className="vintage-grunge relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24 md:pt-24 pb-16">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-      
-      {/* Subtle Grid Pattern - Otimizado para evitar re-renderizações */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5 vg-grade" />
+
+      {/* Warm halation bloom */}
+      <div className="vg-halation" />
+
+      {/* Subtle Grid Pattern */}
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
@@ -30,6 +33,12 @@ export const HeroSection = () => {
           willChange: 'auto'
         }}
       />
+
+      {/* Film grain + dust & scratches + vignette (crushed blacks) */}
+      <div className="vg-grain" aria-hidden="true" />
+      <div className="vg-dust" aria-hidden="true" />
+      <div className="vg-vignette" aria-hidden="true" />
+
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-0">
@@ -44,7 +53,7 @@ export const HeroSection = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.1] mb-6"
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.1] mb-6 vg-text-halation vg-jitter"
             >
               Transforme dados em{" "}
               <motion.span 
@@ -133,7 +142,7 @@ export const HeroSection = () => {
               <img 
                 src="/Imagens/Herosection.png" 
                 alt="Dashboard de análise de dados" 
-                className="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,113,231,0.3)] max-w-[550px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px]"
+                className="w-full h-auto vg-rgb max-w-[550px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px]"
                 loading="eager"
               />
             </div>
