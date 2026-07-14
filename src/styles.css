@@ -281,3 +281,108 @@
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+
+/* ---------------------------------------------------------------- */
+/* Vintage Mixed Media Grunge — escopo: .vintage-grunge              */
+/* ---------------------------------------------------------------- */
+.vintage-grunge {
+  --halation: 20 100% 55%;
+}
+
+/* Color grading: crushed blacks + warm highlights */
+.vintage-grunge .vg-grade {
+  filter: contrast(1.15) saturate(1.1) brightness(0.95) sepia(0.08);
+}
+
+/* Film grain via SVG feTurbulence */
+.vg-grain {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  z-index: 30;
+  opacity: 0.28;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95  0 0 0 0 0.9  0 0 0 0 0.8  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation: vg-grain-shift 0.6s steps(6) infinite;
+}
+@keyframes vg-grain-shift {
+  0%   { transform: translate(0,0); }
+  20%  { transform: translate(-3%, 2%); }
+  40%  { transform: translate(2%, -3%); }
+  60%  { transform: translate(-2%, -2%); }
+  80%  { transform: translate(3%, 3%); }
+  100% { transform: translate(0,0); }
+}
+
+/* Dust & scratches overlay */
+.vg-dust {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 31;
+  opacity: 0.18;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><g fill='none' stroke='white' stroke-width='0.6' opacity='0.7'><line x1='120' y1='0' x2='118' y2='600'/><line x1='430' y1='0' x2='433' y2='600'/><line x1='680' y1='0' x2='682' y2='600'/></g><g fill='white'><circle cx='90' cy='140' r='0.8'/><circle cx='250' cy='420' r='1.1'/><circle cx='510' cy='90' r='0.7'/><circle cx='720' cy='330' r='1.3'/><circle cx='360' cy='530' r='0.9'/><circle cx='600' cy='500' r='0.6'/></g></svg>");
+  background-size: 800px 600px;
+  animation: vg-dust-scroll 8s steps(12) infinite;
+}
+@keyframes vg-dust-scroll {
+  0% { background-position: 0 0; }
+  100% { background-position: 800px -600px; }
+}
+
+/* Halation — warm bloom around bright edges */
+.vg-halation {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  background:
+    radial-gradient(ellipse 40% 30% at 72% 55%, hsl(var(--halation) / 0.35), transparent 70%),
+    radial-gradient(ellipse 30% 25% at 18% 30%, hsl(15 90% 55% / 0.18), transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(30px);
+}
+
+/* Vignette + crushed blacks */
+.vg-vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 32;
+  background: radial-gradient(ellipse at center, transparent 40%, hsl(0 0% 0% / 0.55) 100%);
+  mix-blend-mode: multiply;
+}
+
+/* RGB split for hero image */
+.vg-rgb {
+  filter:
+    drop-shadow(-2px 0 0 hsl(0 100% 50% / 0.55))
+    drop-shadow(2px 0 0 hsl(190 100% 50% / 0.5))
+    drop-shadow(0 20px 50px hsl(209 100% 45% / 0.3));
+  transition: filter 300ms ease;
+}
+.vg-rgb:hover {
+  filter:
+    drop-shadow(-4px 0 0 hsl(0 100% 50% / 0.7))
+    drop-shadow(4px 0 0 hsl(190 100% 50% / 0.65))
+    drop-shadow(0 20px 60px hsl(209 100% 45% / 0.4));
+}
+
+/* Halation text-glow for headline */
+.vg-text-halation {
+  text-shadow:
+    0 0 12px hsl(var(--halation) / 0.45),
+    0 0 32px hsl(20 100% 50% / 0.25);
+}
+
+/* Posterized / 12 FPS jitter animation */
+@keyframes vg-jitter {
+  0%, 100% { transform: translate(0,0); }
+  25% { transform: translate(-0.6px, 0.4px); }
+  50% { transform: translate(0.5px, -0.5px); }
+  75% { transform: translate(-0.4px, -0.3px); }
+}
+.vg-jitter {
+  animation: vg-jitter 0.5s steps(6) infinite;
+}
