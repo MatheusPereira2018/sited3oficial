@@ -4,7 +4,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import ROIQuiz from "@/components/quiz/ROIQuiz";
-import { HeroAnimation } from "@/components/HeroAnimation";
 
 export const HeroSection = () => {
   const [showROIQuiz, setShowROIQuiz] = useState(false);
@@ -129,8 +128,14 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="relative order-2 lg:order-2 flex-1 hidden md:flex lg:justify-start"
           >
-            <div className="relative z-10 w-full">
-              <HeroAnimation />
+            {/* Dashboard Image */}
+            <div className="relative z-10 w-full flex justify-center lg:justify-start">
+              <img 
+                src="/Imagens/Herosection.png" 
+                alt="Dashboard de análise de dados" 
+                className="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,113,231,0.3)] max-w-[550px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[900px] 2xl:max-w-[1000px]"
+                loading="eager"
+              />
             </div>
           </motion.div>
         </div>
