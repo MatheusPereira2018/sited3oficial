@@ -17,11 +17,14 @@ export const HeroSection = () => {
 
   return (
     <>
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24 md:pt-24 pb-16">
+    <section id="home" className="vintage-grunge relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24 md:pt-24 pb-16">
       {/* Background Effects */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
-      
-      {/* Subtle Grid Pattern - Otimizado para evitar re-renderizações */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5 vg-grade" />
+
+      {/* Warm halation bloom */}
+      <div className="vg-halation" />
+
+      {/* Subtle Grid Pattern */}
       <div 
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
@@ -30,6 +33,12 @@ export const HeroSection = () => {
           willChange: 'auto'
         }}
       />
+
+      {/* Film grain + dust & scratches + vignette (crushed blacks) */}
+      <div className="vg-grain" aria-hidden="true" />
+      <div className="vg-dust" aria-hidden="true" />
+      <div className="vg-vignette" aria-hidden="true" />
+
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row lg:items-center lg:gap-0">
