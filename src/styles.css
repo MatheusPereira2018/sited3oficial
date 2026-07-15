@@ -198,8 +198,39 @@
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
+    letter-spacing: -0.03em;
+    font-weight: 800;
+  }
+
+  h1, h2 {
+    letter-spacing: -0.04em;
   }
 }
+
+/* Deck-style eyebrow pill (uppercase, bordered, spaced) */
+@utility eyebrow-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid hsl(var(--border));
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+
+@utility eyebrow-label {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: hsl(var(--primary));
+}
+
 
 /* ---------------------------------------------------------------- */
 /* Custom utilities (v4: use @utility, not @layer utilities)         */
