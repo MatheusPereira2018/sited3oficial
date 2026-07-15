@@ -1,12 +1,35 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import ROIQuiz from "@/components/quiz/ROIQuiz";
 
 export const HeroSection = () => {
   const [showROIQuiz, setShowROIQuiz] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Mouse-tracking glow
+  const mouseX = useMotionValue(50);
+  const mouseY = useMotionValue(50);
+  const smoothX = useSpring(mouseX, { stiffness: 60, damping: 20, mass: 0.6 });
+  const smoothY = useSpring(mouseY, { stiffness: 60, damping: 20, mass: 0.6 });
+  const bgPos = useTransform([smoothX, smoothY], ([x, y]) => `${x}% ${y}%`);
+  const glowBg = useTransform(
+    bgPos,
+    (pos) =>
+      `radial-gradient(ellipse 55% 55% at ${pos}, hsl(var(--primary) / 0.35) 0%, transparent 60%)`
+  );
+  // Parallax for hero image
+  const imgX = useTransform(smoothX, [0, 100], [-15, 15]);
+  const imgY = useTransform(smoothY, [0, 100], [-10, 10]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = sectionRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set(((e.clientX - rect.left) / rect.width) * 100);
+    mouseY.set(((e.clientY - rect.top) / rect.height) * 100);
+  };
 
   const scrollToContact = () => {
     const contactSection = document.getElementById("contato");
@@ -17,9 +40,22 @@ export const HeroSection = () => {
 
   return (
     <>
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden pt-20 sm:pt-24 md:pt-24 pb-16">
+    <section
+      id="home"
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex items-center overflow-hidden pt-32 sm:pt-36 md:pt-40 pb-16"
+    >
       {/* Background Effects */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
+
+      {/* Mouse-tracking glow */}
+      <motion.div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none mix-blend-screen dark:mix-blend-screen"
+        style={{ background: glowBg }}
+      />
+
       
       {/* Subtle Grid Pattern - Otimizado para evitar re-renderizações */}
       <div 
