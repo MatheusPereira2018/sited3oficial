@@ -112,7 +112,7 @@ export const Header = () => {
           <img 
             src={currentLogo} 
             alt="D3 Data" 
-            className="h-8 sm:h-10 md:h-14 w-auto"
+            className="h-8 sm:h-10 md:h-14 w-auto dark:brightness-0 dark:invert"
           />
         </a>
 
