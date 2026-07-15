@@ -40,15 +40,24 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             className="text-center lg:text-left order-1 lg:order-1 lg:flex-shrink-0 lg:max-w-lg xl:max-w-xl mx-auto lg:mx-0 lg:pr-8"
           >
+            <motion.span
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="eyebrow-label mb-5 block"
+            >
+              Consultoria · Dados · IA
+            </motion.span>
+
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-[1.1] mb-6"
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[3.75rem] font-extrabold leading-[1.02] tracking-[-0.04em] mb-6"
             >
               Transforme dados em{" "}
               <motion.span 
-                className="gradient-text"
+                className="text-primary"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5, duration: 0.6 }}
@@ -56,6 +65,7 @@ export const HeroSection = () => {
                 decisões estratégicas
               </motion.span>
             </motion.h1>
+
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
