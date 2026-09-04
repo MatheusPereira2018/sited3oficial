@@ -336,7 +336,7 @@ const Palestras = () => {
                   <br />
                   superior de conhecimento!
                 </p>
-                <Link to="/#contato">
+                <a href="#contato">
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-primary to-accent text-white font-semibold rounded-xl px-8 py-6 hover:scale-[1.02] hover:shadow-[0_10px_30px_hsl(var(--primary)/0.4)] flex items-center justify-center gap-3 group"
@@ -344,7 +344,7 @@ const Palestras = () => {
                     Fale Conosco
                     <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                   </Button>
-                </Link>
+                </a>
               </motion.div>
 
               {/* Right Content - Image */}
