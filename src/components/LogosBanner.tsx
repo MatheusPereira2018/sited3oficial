@@ -5,9 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import logoEixoSP from "@/assets/clients/eixo-sp.png";
 import logoEntrevias from "@/assets/clients/entrevias.png";
 import logoNutrivet from "@/assets/clients/nutrivet.png";
-import logoStartTel from "@/assets/clients/starttel.png";
-import logoEcoterra from "@/assets/clients/ecoterra.png";
-import logoImpactaTech from "@/assets/clients/impactatech.jpg";
 import logoHiddenSushi from "@/assets/clients/hidden-sushi.png";
 import logoCamil from "@/assets/clients/camil.png";
 import logoUniao from "@/assets/clients/uniao.png";
@@ -25,12 +22,9 @@ const logos = [
   { src: logoNamorado, alt: "Namorado" },
   { src: logoPescador, alt: "Pescador" },
   { src: logoMabel, alt: "Mabel" },
-  { src: logoEixoSP, alt: "Eixo SP" },
-  { src: logoEntrevias, alt: "Entrevias" },
+  { src: logoEixoSP, alt: "Eixo SP", size: "large" as const },
+  { src: logoEntrevias, alt: "Entrevias", size: "large" as const },
   { src: logoNutrivet, alt: "Nutrivet" },
-  { src: logoStartTel, alt: "StartTel" },
-  { src: logoEcoterra, alt: "Ecoterra" },
-  { src: logoImpactaTech, alt: "Impacta Tech" },
   { src: logoHiddenSushi, alt: "Hidden Sushi" },
 ];
 
@@ -46,6 +40,7 @@ const LogoItem = ({
   const [grayscale, setGrayscale] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const isLarge = logo.size === "large";
 
   useEffect(() => {
     const checkMobile = () => {
@@ -101,7 +96,11 @@ const LogoItem = ({
       <img
         src={logo.src}
         alt={logo.alt}
-        className="logo-carousel h-10 sm:h-12 md:h-14 w-auto object-contain max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+        className={`logo-carousel w-auto object-contain ${
+          isLarge
+            ? "h-12 sm:h-14 md:h-16 max-w-[140px] sm:max-w-[170px] md:max-w-[200px]"
+            : "h-10 sm:h-12 md:h-14 max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+        }`}
         style={{
           filter: `grayscale(${grayscale}%)`,
           opacity: opacity,
@@ -159,7 +158,7 @@ export const LogosBanner = () => {
               x: {
                 repeat: Infinity,
                 repeatType: "loop",
-                duration: isMobile ? 45 : 30,
+                duration: isMobile ? 75 : 55,
                 ease: "linear",
               },
             }}
