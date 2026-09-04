@@ -190,12 +190,8 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* ROI Quiz Modal */}
-      <Dialog open={showROIQuiz} onOpenChange={setShowROIQuiz}>
-        <DialogContent className="max-w-lg p-6 md:p-8">
-          <ROIQuiz onClose={() => setShowROIQuiz(false)} />
-        </DialogContent>
-      </Dialog>
+      {/* Diagnóstico de Maturidade */}
+      <MaturityQuizDialog open={showDiagnostico} onOpenChange={setShowDiagnostico} />
     </section>
     </>
   );
