@@ -3,10 +3,10 @@ import { ArrowRight } from "lucide-react";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import ROIQuiz from "@/components/quiz/ROIQuiz";
+import { MaturityQuizDialog } from "@/components/maturity-quiz/MaturityQuizDialog";
 
 export const HeroSection = () => {
-  const [showROIQuiz, setShowROIQuiz] = useState(false);
+  const [showDiagnostico, setShowDiagnostico] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Mouse-tracking glow
