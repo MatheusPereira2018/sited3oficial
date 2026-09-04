@@ -137,7 +137,7 @@ export const MaturityQuizDialog = ({ open, onOpenChange }: MaturityQuizDialogPro
           {/* Form */}
           <div className="p-6">
             <p className="text-muted-foreground text-sm text-center mb-6">
-              Seus dados serão usados apenas para enviar o diagnóstico.
+              Receba seu diagnóstico personalizado e as recomendações para evoluir sua operação de dados.
             </p>
 
             <div className="space-y-4">
