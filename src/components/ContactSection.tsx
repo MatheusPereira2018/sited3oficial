@@ -314,7 +314,7 @@ export const ContactSection = () => {
                   "Enviando..."
                 ) : (
                   <>
-                    Quero clareza nos meus dados
+                    Quero conversar com um especialista
                     <Send className="w-5 h-5" />
                   </>
                 )}
