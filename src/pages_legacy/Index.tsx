@@ -22,9 +22,9 @@ const Index = () => {
       <main>
         <HeroSection />
         <LogosBanner />
-        <MaturityCTABanner />
         <ServicesSection />
         <CasesSection />
+        <MaturityCTABanner />
         <ROICTASection />
         <DifferentialsSection />
         <ClientsSection />

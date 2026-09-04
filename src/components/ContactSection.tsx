@@ -12,14 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { submitFormToN8N, submitLeadToGoogleSheets, validateContactInfo } from "@/lib/formSubmission";
+import { submitLeadToGoogleSheets, validateContactInfo } from "@/lib/formSubmission";
 export const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [position, setPosition] = useState<string>("");
-  const [segment, setSegment] = useState<string>("");
-  const [employees, setEmployees] = useState<string>("");
   const [interest, setInterest] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,43 +46,28 @@ export const ContactSection = () => {
         return;
       }
 
-      // Preparar dados adicionais
-      const additionalInfo = {
-        origem: 'contato_site',
-        position: position || formData.get('position') || "",
-        segment: segment || formData.get('segment') || "",
-        employees: employees || formData.get('employees') || "",
-        interest: interest || formData.get('interest') || "",
-        concerns: formData.get('concerns') || "",
-        timestamp: new Date().toISOString()
-      };
-
-      // Enviar para o painel de leads (banco) e para a planilha Google
-      const result = await submitFormToN8N(contactInfo, additionalInfo);
-      await submitLeadToGoogleSheets({
+      // Enviar para a planilha Google (fonte oficial dos leads)
+      const ok = await submitLeadToGoogleSheets({
         nome: contactInfo.name,
         email: contactInfo.email,
         telefone: contactInfo.phone,
         empresa: contactInfo.company,
-        cargo: String(additionalInfo.position || ""),
-        interesse: String(additionalInfo.interest || ""),
-        mensagem: String(additionalInfo.concerns || ""),
+        cargo: "",
+        interesse: interest || "",
+        mensagem: String(formData.get('concerns') || ""),
       });
 
-      if (result.success) {
+      if (ok) {
         toast({
           title: "Recebemos seu contato!",
           description: "Em breve entraremos em contato. Obrigado!",
         });
         (e.target as HTMLFormElement).reset();
-        setPosition("");
-        setSegment("");
-        setEmployees("");
         setInterest("");
       } else {
         toast({
           title: "Erro ao enviar",
-          description: result.message || "Tente novamente mais tarde.",
+          description: "Tente novamente mais tarde.",
           variant: "destructive",
         });
       }
@@ -236,11 +218,16 @@ export const ContactSection = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
             <form onSubmit={handleSubmit} className="glass-card p-5 sm:p-6 lg:p-8 rounded-2xl space-y-4 sm:space-y-5 w-full min-w-0">
-              <div className="flex items-center gap-3 mb-2">
-                <MessageSquare className="w-5 h-5 text-accent" />
-                <h3 className="font-display text-lg font-semibold">
-                  Quero sair do caos
-                </h3>
+              <div className="mb-2">
+                <div className="flex items-center gap-3">
+                  <MessageSquare className="w-5 h-5 text-accent" />
+                  <h3 className="font-display text-lg font-semibold">
+                    Conte seu desafio para a D3
+                  </h3>
+                </div>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Entendemos seu cenário e retornamos com uma visão inicial de como Dados, IA ou Automação podem ajudar.
+                </p>
               </div>
               
               <div className="grid sm:grid-cols-2 gap-4">
@@ -287,76 +274,24 @@ export const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Cargo</label>
-                  <Select value={position} onValueChange={setPosition}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione seu cargo" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ceo">CEO / Proprietário</SelectItem>
-                      <SelectItem value="diretor">Diretor</SelectItem>
-                      <SelectItem value="gerente">Gerente</SelectItem>
-                      <SelectItem value="coordenador">Coordenador</SelectItem>
-                      <SelectItem value="analista">Analista</SelectItem>
-                      <SelectItem value="outro">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Segmento</label>
-                  <Select value={segment} onValueChange={setSegment}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione o segmento" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="agroindustria">Agroindústria</SelectItem>
-                      <SelectItem value="industria">Indústria</SelectItem>
-                      <SelectItem value="varejo">Varejo</SelectItem>
-                      <SelectItem value="servicos">Serviços</SelectItem>
-                      <SelectItem value="financas">Finanças</SelectItem>
-                      <SelectItem value="saude">Saúde</SelectItem>
-                      <SelectItem value="logistica">Logística</SelectItem>
-                      <SelectItem value="outro">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Área de interesse</label>
+                <Select value={interest} onValueChange={setInterest}>
+                  <SelectTrigger className="bg-background/50 border-border focus:border-primary">
+                    <SelectValue placeholder="Selecione a área" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="bi">BI & Analytics</SelectItem>
+                    <SelectItem value="integracao">Engenharia / Integração de Dados</SelectItem>
+                    <SelectItem value="governanca">Governança de Dados</SelectItem>
+                    <SelectItem value="ia">IA</SelectItem>
+                    <SelectItem value="automacao">Automação</SelectItem>
+                    <SelectItem value="consultoria">Consultoria Estratégica</SelectItem>
+                    <SelectItem value="outro">Outro</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Número de funcionários</label>
-                  <Select value={employees} onValueChange={setEmployees}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1-50">Menos de 50</SelectItem>
-                      <SelectItem value="51-200">50 a 200</SelectItem>
-                      <SelectItem value="201-500">200 a 500</SelectItem>
-                      <SelectItem value="501-1000">500 a 1.000</SelectItem>
-                      <SelectItem value="1000+">Mais de 1.000</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Área de interesse</label>
-                  <Select value={interest} onValueChange={setInterest}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione a área" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="bi">BI & Analytics</SelectItem>
-                      <SelectItem value="integracao">Integração de Dados</SelectItem>
-                      <SelectItem value="governanca">Governança de Dados</SelectItem>
-                      <SelectItem value="automacao">Automação de Processos</SelectItem>
-                      <SelectItem value="consultoria">Consultoria Estratégica</SelectItem>
-                      <SelectItem value="outro">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">
@@ -379,7 +314,7 @@ export const ContactSection = () => {
                   "Enviando..."
                 ) : (
                   <>
-                    Quero clareza nos meus dados
+                    Quero conversar com um especialista
                     <Send className="w-5 h-5" />
                   </>
                 )}

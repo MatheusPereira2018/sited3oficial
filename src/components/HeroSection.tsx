@@ -2,11 +2,11 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
-import ROIQuiz from "@/components/quiz/ROIQuiz";
+
+import { MaturityQuizDialog } from "@/components/maturity-quiz/MaturityQuizDialog";
 
 export const HeroSection = () => {
-  const [showROIQuiz, setShowROIQuiz] = useState(false);
+  const [showDiagnostico, setShowDiagnostico] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   // Mouse-tracking glow
@@ -124,14 +124,14 @@ export const HeroSection = () => {
                 onClick={scrollToContact}
                 className="bg-gradient-to-r from-primary to-accent text-white font-semibold group rounded-xl px-6 py-3 hover:scale-[1.02] hover:shadow-[0_10px_30px_hsl(var(--primary)/0.4)] flex items-center justify-center gap-3 w-full sm:w-auto pointer-events-auto"
               >
-                Falar com especialista
+                Falar com a D3
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
               </Button>
               <Button
-                onClick={() => setShowROIQuiz(true)}
+                onClick={() => setShowDiagnostico(true)}
                 className="btn-success-animated group/btn relative inline-flex items-center justify-center gap-3 rounded-xl bg-success hover:bg-success/90 px-6 py-3 text-success-foreground font-semibold w-full sm:w-auto pointer-events-auto"
               >
-                <span>Fazer diagnóstico</span>
+                <span>Fazer diagnóstico gratuito</span>
                 <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover/btn:translate-x-1" />
               </Button>
             </motion.div>
@@ -190,12 +190,8 @@ export const HeroSection = () => {
         </div>
       </div>
 
-      {/* ROI Quiz Modal */}
-      <Dialog open={showROIQuiz} onOpenChange={setShowROIQuiz}>
-        <DialogContent className="max-w-lg p-6 md:p-8">
-          <ROIQuiz onClose={() => setShowROIQuiz(false)} />
-        </DialogContent>
-      </Dialog>
+      {/* Diagnóstico de Maturidade */}
+      <MaturityQuizDialog open={showDiagnostico} onOpenChange={setShowDiagnostico} />
     </section>
     </>
   );
