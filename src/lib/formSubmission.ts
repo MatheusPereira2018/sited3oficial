@@ -102,8 +102,10 @@ export async function submitLeadToGoogleSheets(
       headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload),
     });
+    return true;
   } catch (error) {
     console.error("[google-sheets] submit error:", error);
+    return false;
   }
 }
 
