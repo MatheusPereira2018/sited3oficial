@@ -107,6 +107,50 @@ export async function submitLeadToGoogleSheets(
   }
 }
 
+interface DiagnosticoPayload {
+  nome: string;
+  email: string;
+  telefone: string;
+  empresa: string;
+  maturidade_dados: string;
+  observacoes: string;
+}
+
+/**
+ * Envia o resultado do diagnóstico de maturidade para o Google Apps Script.
+ * Fire-and-forget: nunca bloqueia a exibição do resultado.
+ */
+export async function submitDiagnosticoToGoogleSheets(
+  data: DiagnosticoPayload,
+): Promise<void> {
+  try {
+    const payload = {
+      type: "diagnostico",
+      nome: data.nome,
+      email: data.email,
+      telefone: data.telefone,
+      empresa: data.empresa,
+      cargo: "",
+      area: "",
+      desafio_principal: "",
+      maturidade_dados: data.maturidade_dados,
+      usa_ia: "",
+      urgencia: "",
+      faixa_investimento: "",
+      observacoes: data.observacoes,
+    };
+
+    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    console.error("[google-sheets] diagnostico error:", error);
+  }
+}
+
 export function validateContactInfo(contactInfo: ContactInfo): {
   isValid: boolean;
   errors: string[];
