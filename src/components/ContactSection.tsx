@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { submitFormToN8N, validateContactInfo } from "@/lib/formSubmission";
+import { submitFormToN8N, submitLeadToGoogleSheets, validateContactInfo } from "@/lib/formSubmission";
 export const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -60,8 +60,17 @@ export const ContactSection = () => {
         timestamp: new Date().toISOString()
       };
 
-      // Enviar para N8N
+      // Enviar para o painel de leads (banco) e para a planilha Google
       const result = await submitFormToN8N(contactInfo, additionalInfo);
+      await submitLeadToGoogleSheets({
+        nome: contactInfo.name,
+        email: contactInfo.email,
+        telefone: contactInfo.phone,
+        empresa: contactInfo.company,
+        cargo: String(additionalInfo.position || ""),
+        interesse: String(additionalInfo.interest || ""),
+        mensagem: String(additionalInfo.concerns || ""),
+      });
 
       if (result.success) {
         toast({

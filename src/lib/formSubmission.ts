@@ -58,6 +58,55 @@ export async function submitFormToN8N(
   }
 }
 
+const GOOGLE_APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbwClqfx0NN4yj4iH6KbjAEEK2I9R4-JnSjupIxY5FNfMD4JPHjYZg--YoSpoFJoiGDQ-g/exec";
+
+interface GoogleLeadPayload {
+  nome: string;
+  email: string;
+  telefone: string;
+  empresa: string;
+  cargo?: string;
+  interesse?: string;
+  mensagem?: string;
+}
+
+/**
+ * Envia o lead para o Google Apps Script (planilha Google).
+ * Usa no-cors + text/plain conforme exigido pelo endpoint; é fire-and-forget
+ * e não bloqueia o fluxo principal em caso de falha.
+ */
+export async function submitLeadToGoogleSheets(
+  lead: GoogleLeadPayload,
+): Promise<void> {
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const payload = {
+      type: "lead",
+      nome: lead.nome,
+      email: lead.email,
+      telefone: lead.telefone,
+      empresa: lead.empresa,
+      cargo: lead.cargo || "",
+      interesse: lead.interesse || "",
+      mensagem: lead.mensagem || "",
+      origem: "site-d3",
+      utm_source: params.get("utm_source") || "",
+      utm_medium: params.get("utm_medium") || "",
+      utm_campaign: params.get("utm_campaign") || "",
+    };
+
+    await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    console.error("[google-sheets] submit error:", error);
+  }
+}
+
 export function validateContactInfo(contactInfo: ContactInfo): {
   isValid: boolean;
   errors: string[];
