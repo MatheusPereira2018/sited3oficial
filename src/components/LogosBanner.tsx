@@ -15,14 +15,14 @@ import logoMabel from "@/assets/clients/mabel.png";
 
 const logos = [
   { src: logoCamil, alt: "Camil" },
+  { src: logoEixoSP, alt: "Eixo SP", size: "large" as const },
   { src: logoUniao, alt: "União" },
+  { src: logoEntrevias, alt: "Entrevias", size: "large" as const },
   { src: logoCoqueiro, alt: "Coqueiro" },
-  { src: logoSantaAmalia, alt: "Santa Amália" },
   { src: logoNamorado, alt: "Namorado", size: "large" as const },
+  { src: logoSantaAmalia, alt: "Santa Amália" },
   { src: logoPescador, alt: "Pescador" },
   { src: logoMabel, alt: "Mabel" },
-  { src: logoEixoSP, alt: "Eixo SP", size: "large" as const },
-  { src: logoEntrevias, alt: "Entrevias", size: "large" as const },
   { src: logoNutrivet, alt: "Nutrivet" },
 ];
 
