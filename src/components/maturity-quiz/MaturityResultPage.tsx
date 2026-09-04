@@ -21,7 +21,7 @@ import {
 } from "./maturityQuizConfig";
 import { ContactInfo } from "./LeadCaptureStep";
 import { generateMaturityPDF } from "./generatePDF";
-import { submitFormToN8N } from "@/lib/formSubmission";
+import { submitDiagnosticoToGoogleSheets } from "@/lib/formSubmission";
 
 const GOOGLE_SHEETS_WEBHOOK = "";
 
