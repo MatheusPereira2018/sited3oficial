@@ -5,7 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import logoEixoSP from "@/assets/clients/eixo-sp.png";
 import logoEntrevias from "@/assets/clients/entrevias.png";
 import logoNutrivet from "@/assets/clients/nutrivet.png";
-import logoHiddenSushi from "@/assets/clients/hidden-sushi.png";
 import logoCamil from "@/assets/clients/camil.png";
 import logoUniao from "@/assets/clients/uniao.png";
 import logoCoqueiro from "@/assets/clients/coqueiro.png";
@@ -19,13 +18,12 @@ const logos = [
   { src: logoUniao, alt: "União" },
   { src: logoCoqueiro, alt: "Coqueiro" },
   { src: logoSantaAmalia, alt: "Santa Amália" },
-  { src: logoNamorado, alt: "Namorado" },
+  { src: logoNamorado, alt: "Namorado", size: "large" as const },
   { src: logoPescador, alt: "Pescador" },
   { src: logoMabel, alt: "Mabel" },
   { src: logoEixoSP, alt: "Eixo SP", size: "large" as const },
   { src: logoEntrevias, alt: "Entrevias", size: "large" as const },
   { src: logoNutrivet, alt: "Nutrivet" },
-  { src: logoHiddenSushi, alt: "Hidden Sushi" },
 ];
 
 
