@@ -129,6 +129,11 @@ export const LogosBanner = () => {
 
   return (
     <section ref={sectionRef} className="py-10 sm:py-14 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
+        <p className="text-center text-sm sm:text-base font-medium tracking-wider text-muted-foreground uppercase">
+          Empresas que confiam no nosso trabalho
+        </p>
+      </div>
       <div className="relative w-full overflow-hidden">
         <motion.div 
           ref={containerRef} 
