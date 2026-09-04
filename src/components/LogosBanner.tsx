@@ -40,6 +40,7 @@ const LogoItem = ({
   const [grayscale, setGrayscale] = useState(0);
   const [opacity, setOpacity] = useState(1);
   const [isMobile, setIsMobile] = useState(false);
+  const isLarge = logo.size === "large";
 
   useEffect(() => {
     const checkMobile = () => {
@@ -95,7 +96,11 @@ const LogoItem = ({
       <img
         src={logo.src}
         alt={logo.alt}
-        className="logo-carousel h-10 sm:h-12 md:h-14 w-auto object-contain max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+        className={`logo-carousel w-auto object-contain ${
+          isLarge
+            ? "h-12 sm:h-14 md:h-16 max-w-[140px] sm:max-w-[170px] md:max-w-[200px]"
+            : "h-10 sm:h-12 md:h-14 max-w-[120px] sm:max-w-[140px] md:max-w-[160px]"
+        }`}
         style={{
           filter: `grayscale(${grayscale}%)`,
           opacity: opacity,
