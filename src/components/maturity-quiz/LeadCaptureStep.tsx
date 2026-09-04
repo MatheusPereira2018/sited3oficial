@@ -85,7 +85,7 @@ export const LeadCaptureStep = ({ onSubmit, onBack }: LeadCaptureStepProps) => {
         >
           <div className="text-center mb-6">
             <p className="text-muted-foreground">
-              Seus dados serão usados apenas para enviar o diagnóstico e, se desejar, agendar uma consultoria.
+              Receba seu diagnóstico personalizado e as recomendações para evoluir sua operação de dados.
             </p>
           </div>
 
