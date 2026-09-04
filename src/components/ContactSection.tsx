@@ -46,43 +46,28 @@ export const ContactSection = () => {
         return;
       }
 
-      // Preparar dados adicionais
-      const additionalInfo = {
-        origem: 'contato_site',
-        position: position || formData.get('position') || "",
-        segment: segment || formData.get('segment') || "",
-        employees: employees || formData.get('employees') || "",
-        interest: interest || formData.get('interest') || "",
-        concerns: formData.get('concerns') || "",
-        timestamp: new Date().toISOString()
-      };
-
-      // Enviar para o painel de leads (banco) e para a planilha Google
-      const result = await submitFormToN8N(contactInfo, additionalInfo);
-      await submitLeadToGoogleSheets({
+      // Enviar para a planilha Google (fonte oficial dos leads)
+      const ok = await submitLeadToGoogleSheets({
         nome: contactInfo.name,
         email: contactInfo.email,
         telefone: contactInfo.phone,
         empresa: contactInfo.company,
-        cargo: String(additionalInfo.position || ""),
-        interesse: String(additionalInfo.interest || ""),
-        mensagem: String(additionalInfo.concerns || ""),
+        cargo: "",
+        interesse: interest || "",
+        mensagem: String(formData.get('concerns') || ""),
       });
 
-      if (result.success) {
+      if (ok) {
         toast({
           title: "Recebemos seu contato!",
           description: "Em breve entraremos em contato. Obrigado!",
         });
         (e.target as HTMLFormElement).reset();
-        setPosition("");
-        setSegment("");
-        setEmployees("");
         setInterest("");
       } else {
         toast({
           title: "Erro ao enviar",
-          description: result.message || "Tente novamente mais tarde.",
+          description: "Tente novamente mais tarde.",
           variant: "destructive",
         });
       }
