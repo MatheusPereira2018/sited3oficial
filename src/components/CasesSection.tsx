@@ -4,9 +4,21 @@ import { ArrowRight, Database, BarChart3, Palette, Brain, Layers, Compass } from
 import { Link } from "@tanstack/react-router";
 
 // Componente separado para cada card de case
+const getCaseLink = (id: string) => {
+  switch (id) {
+    case "ia-rh": return { to: "/case/ia-rh" as const };
+    case "oraculo": return { to: "/case/oraculo" as const };
+    case "naturin-vendas": return { to: "/case/naturin-vendas" as const };
+    case "chackapp": return { to: "/case/chackapp" as const };
+    case "copa-mundo": return { to: "/case/copa-mundo" as const };
+    default: return { to: "/cases" as const, hash: id };
+  }
+};
+
 const CaseCard = ({ caseItem, index, activeCategory }: { caseItem: any; index: number; activeCategory: string }) => {
   const caseRef = useRef(null);
   const caseInView = useInView(caseRef, { once: true, margin: "-50px" });
+  const link = getCaseLink(caseItem.id);
   
   return (
     <motion.div
@@ -21,14 +33,8 @@ const CaseCard = ({ caseItem, index, activeCategory }: { caseItem: any; index: n
       whileHover={{ y: -8, scale: 1.02 }}
     >
       <Link 
-        to={
-          caseItem.id === "ia-rh" ? "/case/ia-rh" :
-          caseItem.id === "oraculo" ? "/case/oraculo" :
-          caseItem.id === "naturin-vendas" ? "/case/naturin-vendas" :
-          caseItem.id === "chackapp" ? "/case/chackapp" :
-          caseItem.id === "copa-mundo" ? "/case/copa-mundo" :
-          `/cases#${caseItem.id}`
-        }
+        to={link.to}
+        hash={link.hash}
         className="group block h-full pointer-events-auto"
       >
         <div className="relative h-full rounded-2xl overflow-hidden border border-border/50 bg-card hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_60px_hsl(var(--primary)/0.15)] pointer-events-auto">

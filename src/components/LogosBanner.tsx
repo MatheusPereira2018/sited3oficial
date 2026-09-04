@@ -15,14 +15,14 @@ import logoMabel from "@/assets/clients/mabel.png";
 
 const logos = [
   { src: logoCamil, alt: "Camil" },
+  { src: logoEixoSP, alt: "Eixo SP", size: "large" as const },
   { src: logoUniao, alt: "União" },
+  { src: logoEntrevias, alt: "Entrevias", size: "large" as const },
   { src: logoCoqueiro, alt: "Coqueiro" },
-  { src: logoSantaAmalia, alt: "Santa Amália" },
   { src: logoNamorado, alt: "Namorado", size: "large" as const },
+  { src: logoSantaAmalia, alt: "Santa Amália" },
   { src: logoPescador, alt: "Pescador" },
   { src: logoMabel, alt: "Mabel" },
-  { src: logoEixoSP, alt: "Eixo SP", size: "large" as const },
-  { src: logoEntrevias, alt: "Entrevias", size: "large" as const },
   { src: logoNutrivet, alt: "Nutrivet" },
 ];
 
@@ -129,6 +129,11 @@ export const LogosBanner = () => {
 
   return (
     <section ref={sectionRef} className="py-10 sm:py-14 bg-background overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
+        <p className="text-center text-sm sm:text-base font-medium tracking-wider text-muted-foreground uppercase">
+          Empresas que confiam no nosso trabalho
+        </p>
+      </div>
       <div className="relative w-full overflow-hidden">
         <motion.div 
           ref={containerRef} 

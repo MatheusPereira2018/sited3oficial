@@ -354,10 +354,10 @@ const CTASection = () => {
                 className="bg-gradient-to-r from-primary to-accent hover:opacity-90 text-primary-foreground font-semibold shadow-lg shadow-primary/25 px-10"
                 asChild
               >
-                <Link to="/#contato">
+                <a href="#contato">
                   Falar com a D3 Data
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
+                </a>
               </Button>
             </div>
           </div>
@@ -415,7 +415,7 @@ const CaseHeader = () => {
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
             asChild
           >
-            <Link to="/#contato">Fale Conosco</Link>
+            <a href="#contato">Fale Conosco</a>
           </Button>
         </div>
       </div>
