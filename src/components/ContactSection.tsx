@@ -12,14 +12,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { submitFormToN8N, submitLeadToGoogleSheets, validateContactInfo } from "@/lib/formSubmission";
+import { submitLeadToGoogleSheets, validateContactInfo } from "@/lib/formSubmission";
 export const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [position, setPosition] = useState<string>("");
-  const [segment, setSegment] = useState<string>("");
-  const [employees, setEmployees] = useState<string>("");
   const [interest, setInterest] = useState<string>("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
