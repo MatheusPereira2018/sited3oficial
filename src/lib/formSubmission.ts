@@ -78,7 +78,7 @@ interface GoogleLeadPayload {
  */
 export async function submitLeadToGoogleSheets(
   lead: GoogleLeadPayload,
-): Promise<void> {
+): Promise<boolean> {
   try {
     const params = new URLSearchParams(window.location.search);
     const payload = {
