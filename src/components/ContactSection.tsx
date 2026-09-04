@@ -269,76 +269,24 @@ export const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Cargo</label>
-                  <Select value={position} onValueChange={setPosition}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione seu cargo" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ceo">CEO / Proprietário</SelectItem>
-                      <SelectItem value="diretor">Diretor</SelectItem>
-                      <SelectItem value="gerente">Gerente</SelectItem>
-                      <SelectItem value="coordenador">Coordenador</SelectItem>
-                      <SelectItem value="analista">Analista</SelectItem>
-                      <SelectItem value="outro">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Segmento</label>
-                  <Select value={segment} onValueChange={setSegment}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione o segmento" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="agroindustria">Agroindústria</SelectItem>
-                      <SelectItem value="industria">Indústria</SelectItem>
-                      <SelectItem value="varejo">Varejo</SelectItem>
-                      <SelectItem value="servicos">Serviços</SelectItem>
-                      <SelectItem value="financas">Finanças</SelectItem>
-                      <SelectItem value="saude">Saúde</SelectItem>
-                      <SelectItem value="logistica">Logística</SelectItem>
-                      <SelectItem value="outro">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Área de interesse</label>
+                <Select value={interest} onValueChange={setInterest}>
+                  <SelectTrigger className="bg-background/50 border-border focus:border-primary">
+                    <SelectValue placeholder="Selecione a área" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="bi">BI & Analytics</SelectItem>
+                    <SelectItem value="integracao">Engenharia / Integração de Dados</SelectItem>
+                    <SelectItem value="governanca">Governança de Dados</SelectItem>
+                    <SelectItem value="ia">IA</SelectItem>
+                    <SelectItem value="automacao">Automação</SelectItem>
+                    <SelectItem value="consultoria">Consultoria Estratégica</SelectItem>
+                    <SelectItem value="outro">Outro</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Número de funcionários</label>
-                  <Select value={employees} onValueChange={setEmployees}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="1-50">Menos de 50</SelectItem>
-                      <SelectItem value="51-200">50 a 200</SelectItem>
-                      <SelectItem value="201-500">200 a 500</SelectItem>
-                      <SelectItem value="501-1000">500 a 1.000</SelectItem>
-                      <SelectItem value="1000+">Mais de 1.000</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Área de interesse</label>
-                  <Select value={interest} onValueChange={setInterest}>
-                    <SelectTrigger className="bg-background/50 border-border focus:border-primary">
-                      <SelectValue placeholder="Selecione a área" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="bi">BI & Analytics</SelectItem>
-                      <SelectItem value="integracao">Integração de Dados</SelectItem>
-                      <SelectItem value="governanca">Governança de Dados</SelectItem>
-                      <SelectItem value="automacao">Automação de Processos</SelectItem>
-                      <SelectItem value="consultoria">Consultoria Estratégica</SelectItem>
-                      <SelectItem value="outro">Outro</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
 
               <div>
                 <label className="block text-sm font-medium mb-2">
