@@ -130,7 +130,7 @@ export const LogosBanner = () => {
   return (
     <section ref={sectionRef} className="py-10 sm:py-14 bg-background overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-6 sm:mb-8">
-        <p className="text-center text-sm sm:text-base font-medium tracking-wider text-muted-foreground uppercase">
+        <p className="text-center text-xs sm:text-sm font-normal tracking-normal text-muted-foreground/60">
           Empresas que confiam no nosso trabalho
         </p>
       </div>
