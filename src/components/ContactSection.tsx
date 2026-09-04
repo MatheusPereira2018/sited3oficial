@@ -218,11 +218,16 @@ export const ContactSection = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
             >
             <form onSubmit={handleSubmit} className="glass-card p-5 sm:p-6 lg:p-8 rounded-2xl space-y-4 sm:space-y-5 w-full min-w-0">
-              <div className="flex items-center gap-3 mb-2">
-                <MessageSquare className="w-5 h-5 text-accent" />
-                <h3 className="font-display text-lg font-semibold">
-                  Quero sair do caos
-                </h3>
+              <div className="mb-2">
+                <div className="flex items-center gap-3">
+                  <MessageSquare className="w-5 h-5 text-accent" />
+                  <h3 className="font-display text-lg font-semibold">
+                    Conte seu desafio para a D3
+                  </h3>
+                </div>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Entendemos seu cenário e retornamos com uma visão inicial de como Dados, IA ou Automação podem ajudar.
+                </p>
               </div>
               
               <div className="grid sm:grid-cols-2 gap-4">
