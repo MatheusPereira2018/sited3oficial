@@ -120,26 +120,23 @@ export const MaturityResultPage = ({ answers, contactInfo, onRestart }: Maturity
 
   const recommendations = getServiceRecommendation(level);
 
-  // Send data to N8N via Supabase Edge Function on mount
+  // Envia o diagnóstico para a planilha Google (nunca bloqueia o resultado)
   useEffect(() => {
-    const sendToN8N = async () => {
-      const additionalInfo = {
-        origem: 'quiz_maturidade_dados',
-        timestamp: new Date().toISOString(),
-        quiz_type: "maturidade_dados",
-        score_total: totalScore,
-        nivel_maturidade: level.name,
-        score_governanca: dimensionScores.governance,
-        score_cultura: dimensionScores.culture,
-        score_infraestrutura: dimensionScores.infrastructure,
-        score_analytics: dimensionScores.analytics,
-        respostas_raw: JSON.stringify(answers),
-      };
-
-      await submitFormToN8N(contactInfo, additionalInfo);
-    };
-
-    sendToN8N();
+    submitDiagnosticoToGoogleSheets({
+      nome: contactInfo.name,
+      email: contactInfo.email,
+      telefone: contactInfo.phone,
+      empresa: contactInfo.company || "",
+      maturidade_dados: `${level.name} (${totalScore}/100)`,
+      observacoes: [
+        `Score total: ${totalScore}/100`,
+        `Governança: ${dimensionScores.governance}`,
+        `Cultura: ${dimensionScores.culture}`,
+        `Infraestrutura: ${dimensionScores.infrastructure}`,
+        `Analytics: ${dimensionScores.analytics}`,
+        `Respostas: ${JSON.stringify(answers)}`,
+      ].join(" | "),
+    });
   }, []);
 
   const handleDownloadPDF = () => {
