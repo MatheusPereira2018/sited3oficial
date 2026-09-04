@@ -5,9 +5,6 @@ import { useRef, useEffect, useState } from "react";
 import logoEixoSP from "@/assets/clients/eixo-sp.png";
 import logoEntrevias from "@/assets/clients/entrevias.png";
 import logoNutrivet from "@/assets/clients/nutrivet.png";
-import logoCheckApp from "@/assets/clients/checkapp.png";
-import logoRelieve from "@/assets/clients/relieve.png";
-import logoIT4D from "@/assets/clients/it4d.png";
 import logoStartTel from "@/assets/clients/starttel.png";
 import logoEcoterra from "@/assets/clients/ecoterra.png";
 import logoImpactaTech from "@/assets/clients/impactatech.jpg";
@@ -31,9 +28,6 @@ const logos = [
   { src: logoEixoSP, alt: "Eixo SP" },
   { src: logoEntrevias, alt: "Entrevias" },
   { src: logoNutrivet, alt: "Nutrivet" },
-  { src: logoCheckApp, alt: "CheckApp" },
-  { src: logoRelieve, alt: "Relieve Tecnologia" },
-  { src: logoIT4D, alt: "IT4D" },
   { src: logoStartTel, alt: "StartTel" },
   { src: logoEcoterra, alt: "Ecoterra" },
   { src: logoImpactaTech, alt: "Impacta Tech" },
