@@ -2,7 +2,7 @@ import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+
 import { MaturityQuizDialog } from "@/components/maturity-quiz/MaturityQuizDialog";
 
 export const HeroSection = () => {
